@@ -1,7 +1,7 @@
 class Api::ProductsController < ApplicationController
   def animals
-    @animals = Product.all
-    render "animals_view.json.jbuilder"
+    @animals = Product.all #Product referring to model
+    render 'animals_view.json.jbuilder'
   end
 
   def animal_1
