@@ -1,37 +1,49 @@
 class Api::ProductsController < ApplicationController
-  def animals
-    @animals = Product.all #Product referring to model
-    render 'animals_view.json.jbuilder'
+  def index
+    @animals = Product.all
+    render 'index.json.jbuilder'
+  end 
+
+  def show
+    animal_id = params[:id]
+    @animal = Product.find(animal_id)
+    render 'show.json.jbuilder'
   end
 
-  def animal_1
-    @animal = Product.find(1)
-    render 'animal_1view.json.jbuilder'
-  end
+  def create
+    @animal = Product.new(
+                          name: params[:name],
+                          price: params[:price],
+                          description: params[:description],
+                          image_url: params[:image_url]
+                          )
+    @animal.save
+    render 'show.json.jbuilder'
+  end 
 
-  def animal_2
-    @animal = Product.find(2)
-    render 'animal_2view.json.jbuilder'
-  end
+  def update
+    animal_id = params[:id]
+    @animal = Product.find(animal_id)
 
-  def animal_3
-    @animal = Product.find(3)
-    render 'animal_3view.json.jbuilder'
-  end
+    @animal.name = params[:name] || @animal.name
+    @animal.price = params[:price] || @animal.price
+    @animal.description = params[:description] || @animal.description
+    @animal.image_url = params[:image_url] || @animal.image_url
 
-  def animal_4
-    @animal = Product.find(4)
-    render 'animal_4view.json.jbuilder'
-  end
+    @animal.save
+    render 'show.json.jbuilder'
+  end 
 
-  def animal_5
-    @animal = Product.find(5)
-    render 'animal_5view.json.jbuilder'
-  end
-
-  def animal_6
-    @animal =Product.find(6)
-    render 'animal_6view.json.jbuilder'
-  end
-
+  def destroy
+    animal_id = params[:id]
+    @animal = Product.find(animal_id)
+    @animal.destroy
+    render json: {message: "Animal successfully removed."}
+  end 
 end
+
+
+
+
+
+
