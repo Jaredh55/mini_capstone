@@ -13,16 +13,16 @@ require 'unirest'
 # puts JSON.pretty_generate(response.body)
 
 # UPDATE ACTION
-animal_id = 9
-runner_params = {
-                  price: 1
-                }
-response = Unirest.patch(
-                          "http://localhost:3000/api/animals/#{animal_id}",
-                          parameters: runner_params
-                          )
-animal_hash = response.body
-puts JSON.pretty_generate(animal_hash)
+# animal_id = 9
+# runner_params = {
+#                   price: 1
+#                 }
+# response = Unirest.patch(
+#                           "http://localhost:3000/api/animals/#{animal_id}",
+#                           parameters: runner_params
+#                           )
+# animal_hash = response.body
+# puts JSON.pretty_generate(animal_hash)
 
 # DESTROY ACTION
 # animal_id = 8

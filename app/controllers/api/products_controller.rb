@@ -4,11 +4,6 @@ class Api::ProductsController < ApplicationController
     render 'index.json.jbuilder'
   end 
 
-  def show
-    animal_id = params[:id]
-    @animal = Product.find(animal_id)
-    render 'show.json.jbuilder'
-  end
 
   def create
     @animal = Product.new(
@@ -21,6 +16,12 @@ class Api::ProductsController < ApplicationController
     render 'show.json.jbuilder'
   end 
 
+  def show
+    animal_id = params[:id]
+    @animal = Product.find(animal_id)
+    render 'show.json.jbuilder'
+  end
+  
   def update
     animal_id = params[:id]
     @animal = Product.find(animal_id)
