@@ -1,6 +1,26 @@
 class Api::ProductsController < ApplicationController
   def index
     @animals = Product.all
+    search_term = params[:search]
+    
+      if search_term
+        @animals = Product.where("name iLIKE ? OR description iLIKE ?", "%#{search_term}%", "%#{search_term}%")
+      end
+
+
+      sort_attribute = params[:sort_by]
+      sort_order = params[:sort_order]
+
+
+      if sort_attribute && sort_order
+        @animals = @animals.order(:sort_attribute => :sort_order)
+      elsif sort_attribute
+        @animals = @animals.order(:sort_attribute => :asc)
+      else
+        @animals = @animals.order(:id => :asc)
+      end
+
+
     render 'index.json.jbuilder'
   end 
 
@@ -10,7 +30,8 @@ class Api::ProductsController < ApplicationController
                           name: params[:name],
                           price: params[:price],
                           description: params[:description],
-                          image_url: params[:image_url]
+                          image_url: params[:image_url],
+                          supplier_id: params[:supplier_id]
                           )
     @animal.save
     render 'show.json.jbuilder'
@@ -30,6 +51,8 @@ class Api::ProductsController < ApplicationController
     @animal.price = params[:price] || @animal.price
     @animal.description = params[:description] || @animal.description
     @animal.image_url = params[:image_url] || @animal.image_url
+    @animal.supplier_id = params[:supplier_id] || @animal.supplier_id
+
 
     @animal.save
     render 'show.json.jbuilder'
