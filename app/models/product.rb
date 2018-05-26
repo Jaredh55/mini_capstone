@@ -1,12 +1,15 @@
 class Product < ApplicationRecord
 
-  def supplier #association method
-    Supplier.find_by(id: supplier_id) #actually doing self.supplier_id
-  end
+  belongs_to :supplier
 
-  def images #association method
-    Image.where(product_id: self.id)
-  end
+  # def supplier #association method
+  #   Supplier.find_by(id: supplier_id) #actually doing self.supplier_id
+  # end
+
+  has_many :images
+  # def images #association method
+  #   Image.where(product_id: self.id)
+  # end
 
   def is_discounted?
     price < 1000 # actually doing self.price
